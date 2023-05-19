@@ -10,6 +10,7 @@ packages = [{include = "discord_bot_template"}]
 python = "^3.11"
 discord = "^2.2.3"
 requests = "^2.30.0"
+python-dotenv = "^1.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
