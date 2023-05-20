@@ -144,10 +144,10 @@ async def roll(
         mod = ""
     # Log and return output as a message
     bot.logger.info(
-        f"Rolling a {dice}d{sides}{mod_op}{mod} for {ctx.author.name} ⟶ {roll} ({inv_rolls}{mod_op}{mod})"
+        f"Rolling a {dice}d{sides}{mod_op}{mod} for {ctx.author.name}  ⟶  {roll}   ( {inv_rolls}{mod_op}{mod} )"
     )
     await ctx.send(
-        f"{dice}d{sides}{mod_op}{mod} ⟶ **{roll}** ({inv_rolls}{mod_op}{mod})"
+        f"{dice}d{sides}{mod_op}{mod}  ⟶  **{roll}**   ( `{inv_rolls}{mod_op}{mod}` )"
     )
 
 
