@@ -135,22 +135,28 @@ async def greeting(ctx):
     ]
 
     response = random.choice(emojis)
-    bot.logger.info(f"")
+    bot.logger.info(f"Responding to {ctx.author.name} with a {response}")
     await ctx.send(response)
 
 
 @bot.command(name="roll", help="Simulates rolling dice returning the total")
 async def roll(ctx, dice_str: str):
     sides_and_dice = dice_str.split("d")
-    if len(sides_and_dice) != 2:
+    if len(sides_and_dice) != 2 or any(not n.isnumeric() for n in sides_and_dice):
         bot.logger.error(f"{dice_str} is not a valid format for the roll command")
+        await ctx.send(f"**{dice_str}** is not a valid format for the roll command")
         return
-    number_of_sides = int(sides_and_dice[1])
-    number_of_dice = int(sides_and_dice[0])
+    sides = int(sides_and_dice[1])
+    dice = int(sides_and_dice[0])
     roll = 0
-    for i in range(number_of_dice):
-        roll += random.choice(range(1, number_of_sides + 1))
-    await ctx.send(roll)
+    inv_rolls = []
+    for i in range(dice):
+        inv_rolls.append(random.choice(range(1, sides + 1)))
+        roll += inv_rolls[-1]
+    bot.logger.info(
+        f"Rolling a {dice}d{sides} for {ctx.author.name} --> {roll} {inv_rolls}"
+    )
+    await ctx.send(f"{dice}d{sides} --> **{roll}** {inv_rolls}")
 
 
 bot.run(TOKEN)
