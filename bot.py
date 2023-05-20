@@ -112,18 +112,18 @@ async def roll(
     # Pull any Mod out of the string
     mod = 0
     mod_op = "+"
-    dice = dice_str
+    dice_str_raw = dice_str
     if "+" in dice_str:
         dice_and_mod = dice_str.split("+")
-        dice = dice_and_mod[0]
+        dice_str_raw = dice_and_mod[0]
         mod = dice_and_mod[-1]
     elif "-" in dice_str:
         dice_and_mod = dice_str.split("-")
-        dice = dice_and_mod[0]
+        dice_str_raw = dice_and_mod[0]
         mod_op = "-"
         mod = dice_and_mod[-1]
     # Split string into Num of Dice and Dice Sides
-    sides_and_dice = dice.split("d")
+    sides_and_dice = dice_str_raw.split("d")
     if len(sides_and_dice) != 2 or any(not n.isnumeric() for n in sides_and_dice):
         bot.logger.error(f"{dice_str} is not a valid format for the roll command")
         await ctx.send(f"**{dice_str}** is not a valid format for the roll command")
