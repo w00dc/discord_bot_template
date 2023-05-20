@@ -8,13 +8,7 @@ import random
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context
 
-# from dotenv import load_dotenv
-from config import get_settings
-
-
-settings = get_settings()
-TOKEN = settings.discord_token
-
+from config import get_settings, LoggingFormatter
 
 # Setup bot intents (events restrictions)
 # For more information about intents, please go to the following websites:
@@ -52,47 +46,16 @@ intents.members = True
 intents.message_content = True
 intents.presences = True
 
+settings = get_settings()
+
 bot = Bot(
     command_prefix=commands.when_mentioned_or(settings.cmd_prefix),
     intents=intents,
     help_command=None,
 )
 
-# Setup the loggers
-
-
-class LoggingFormatter(logging.Formatter):
-    # Colors
-    black = "\x1b[30m"
-    red = "\x1b[31m"
-    green = "\x1b[32m"
-    yellow = "\x1b[33m"
-    blue = "\x1b[34m"
-    gray = "\x1b[38m"
-    # Styles
-    reset = "\x1b[0m"
-    bold = "\x1b[1m"
-
-    COLORS = {
-        logging.DEBUG: gray + bold,
-        logging.INFO: blue + bold,
-        logging.WARNING: yellow + bold,
-        logging.ERROR: red,
-        logging.CRITICAL: red + bold,
-    }
-
-    def format(self, record):
-        log_color = self.COLORS[record.levelno]
-        format = "(black){asctime}(reset) (levelcolor){levelname:<8}(reset) (green){name}(reset) {message}"
-        format = format.replace("(black)", self.black + self.bold)
-        format = format.replace("(reset)", self.reset)
-        format = format.replace("(levelcolor)", log_color)
-        format = format.replace("(green)", self.green + self.bold)
-        formatter = logging.Formatter(format, "%Y-%m-%d %H:%M:%S", style="{")
-        return formatter.format(record)
-
-
-logger = logging.getLogger("discord_bot")
+# Setup the loggers; Give the logger the bot's name
+logger = logging.getLogger(settings.bot_name)
 logger.setLevel(logging.INFO)
 
 # Console handler
@@ -159,4 +122,4 @@ async def roll(ctx, dice_str: str):
     await ctx.send(f"{dice}d{sides} --> **{roll}** {inv_rolls}")
 
 
-bot.run(TOKEN)
+bot.run(settings.discord_token)
