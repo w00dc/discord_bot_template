@@ -51,7 +51,7 @@ settings = get_settings()
 bot = Bot(
     command_prefix=commands.when_mentioned_or(settings.cmd_prefix),
     intents=intents,
-    help_command=None,
+    # help_command=None,
 )
 
 # Setup the loggers; Give the logger the bot's name
