@@ -103,7 +103,12 @@ async def greeting(ctx):
 
 
 @bot.command(name="roll", help="Simulates rolling dice returning the total")
-async def roll(ctx, dice_str: str):
+async def roll(
+    ctx,
+    dice_str: str = commands.parameter(
+        description="Valid dice roll string -- ie, 2d8 for 2 x 8-sided dice"
+    ),
+):
     sides_and_dice = dice_str.split("d")
     if len(sides_and_dice) != 2 or any(not n.isnumeric() for n in sides_and_dice):
         bot.logger.error(f"{dice_str} is not a valid format for the roll command")
