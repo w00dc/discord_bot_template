@@ -5,6 +5,7 @@ import logging
 import platform
 import discord
 import random
+import re
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context
 
@@ -106,21 +107,17 @@ async def greeting(ctx):
 async def roll(
     ctx,
     dice_str: str = commands.parameter(
-        description="Valid dice roll string with +/- mod -- ie, 2d8+1 for 2 x 8-sided dice + 1"
+        description="Valid dice roll string with +/- mod and NO SPACES -- ie, 2d8+1 for 2 x 8-sided dice + 1"
     ),
 ):
     # Pull any Mod out of the string
     mod = 0
     mod_op = "+"
     dice_str_raw = dice_str
-    if "+" in dice_str:
-        dice_and_mod = dice_str.split("+")
+    if "+" in dice_str or "-" in dice_str:
+        dice_and_mod = re.split("[-\+]+", dice_str)
         dice_str_raw = dice_and_mod[0]
-        mod = dice_and_mod[-1]
-    elif "-" in dice_str:
-        dice_and_mod = dice_str.split("-")
-        dice_str_raw = dice_and_mod[0]
-        mod_op = "-"
+        mod_op = re.findall("[-\+]+", dice_str)[0]
         mod = dice_and_mod[-1]
     # Split string into Num of Dice and Dice Sides
     sides_and_dice = dice_str_raw.split("d")
