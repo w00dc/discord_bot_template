@@ -90,20 +90,7 @@ async def on_ready() -> None:
         await bot.tree.sync()
 
 
-@bot.command(name="greet", help="Get an emoji greeting!")
-async def greeting(ctx):
-    emojis = [
-        ":poop:",
-        ":wave:",
-        ":+1:",
-    ]
-
-    response = random.choice(emojis)
-    bot.logger.info(f"Responding to {ctx.author.name} with a {response}")
-    await ctx.send(response)
-
-
-@bot.command(name="roll", help="Simulates rolling dice returning the total")
+@bot.hybrid_command(name="roll", help="Simulates rolling dice returning the total")
 async def roll(
     ctx,
     dice_str: str = commands.parameter(
@@ -148,4 +135,20 @@ async def roll(
     )
 
 
+async def load_cogs() -> None:
+    """
+    The code in this function is executed whenever the bot will start.
+    """
+    for file in os.listdir(f"{os.path.realpath(os.path.dirname(__file__))}/cogs"):
+        if file.endswith(".py"):
+            extension = file[:-3]
+            try:
+                await bot.load_extension(f"cogs.{extension}")
+                bot.logger.info(f"Loaded extension '{extension}'")
+            except Exception as e:
+                exception = f"{type(e).__name__}: {e}"
+                bot.logger.error(f"Failed to load extension {extension}\n{exception}")
+
+
+asyncio.run(load_cogs())
 bot.run(settings.discord_token)
