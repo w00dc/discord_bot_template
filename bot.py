@@ -13,8 +13,6 @@ from config import get_settings, LoggingFormatter
 # For more information about intents, please go to the following websites:
 # https://discordpy.readthedocs.io/en/latest/intents.html
 # https://discordpy.readthedocs.io/en/latest/intents.html#privileged-intents
-
-
 # Default Intents:
 # intents.bans = True
 # intents.dm_messages = True
@@ -34,7 +32,6 @@ from config import get_settings, LoggingFormatter
 # intents.typing = True
 # intents.voice_states = True
 # intents.webhooks = True
-
 # Privileged Intents (Needs to be enabled on developer portal of Discord), please use them only if you need them:
 # intents.members = True
 # intents.message_content = True
