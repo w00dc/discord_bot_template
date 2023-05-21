@@ -4,8 +4,6 @@ import os
 import logging
 import platform
 import discord
-import random
-import re
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context
 
