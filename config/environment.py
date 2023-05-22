@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     discord_token: str = "missing"
     cmd_prefix: str = "!"
     sync_commands_globally: bool = False
+    owner_id: int = 0
     log_level: str = "INFO"
     bot_env: str = "prod"
 

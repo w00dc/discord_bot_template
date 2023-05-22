@@ -85,6 +85,18 @@ async def on_ready() -> None:
         await bot.tree.sync()
 
 
+@bot.command()
+async def sync(ctx: Context) -> None:
+    """
+    This owner-only command is used to sync slash commands with Discord
+    """
+    if ctx.author.id != settings.owner_id:
+        return
+    fmt = await bot.tree.sync()
+    await ctx.send(f"Synced {len(fmt)} commands")
+    return
+
+
 async def load_cogs() -> None:
     """
     The code in this function is executed whenever the bot starts
