@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Chris Wood <woodc@us.ibm.com>"]
 readme = "README.md"
-packages = [{include = "discord_bot_template"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
