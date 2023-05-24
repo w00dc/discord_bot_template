@@ -8,6 +8,8 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Context
 
+from helpers import random_color
+
 
 class General(commands.Cog, name="general"):
     def __init__(self, bot):
@@ -66,8 +68,22 @@ class General(commands.Cog, name="general"):
         self.bot.logger.info(
             f"Rolling a {dice}d{sides}{mod_op}{mod} for {ctx.author.name}  ⟶  {roll}   ( {inv_rolls}{mod_op}{mod} )"
         )
+        # Create an embed to send the response in
+        embed = discord.Embed(
+            title="Roll Results",
+            color=random_color,
+        )
+        embed.set_footer(f"Rolled by {ctx.author.name}")
+        embed.add_field(
+            name=f"{dice_string}",
+            value=f"`{roll}` == `{inv_rolls}{mod_op}{mod}`",
+            inline=False,
+        )
+
         await ctx.send(
-            f"{dice}d{sides}{mod_op}{mod}  ⟶  **{roll}**   ( `{inv_rolls}{mod_op}{mod}` )"
+            # f"{dice}d{sides}{mod_op}{mod}  ⟶  **{roll}**   ( `{inv_rolls}{mod_op}{mod}` )",
+            embed=embed,
+            silent=True,
         )
 
 
