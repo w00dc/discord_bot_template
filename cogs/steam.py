@@ -1,6 +1,6 @@
 import platform
 import random
-import request
+import requests
 
 import aiohttp
 import discord

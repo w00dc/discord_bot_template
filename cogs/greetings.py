@@ -18,7 +18,7 @@ class Greetings(commands.Cog, name="greetings"):
         if channel is not None:
             await channel.send(f"Welcome, {member.mention}!")
 
-    @commands.hybrid_command(self, name="greet", help="Get an emoji greeting!")
+    @commands.hybrid_command(name="greet", help="Get an emoji greeting!")
     async def greeting(self, ctx: Context) -> None:
         emojis = [
             ":poop:",

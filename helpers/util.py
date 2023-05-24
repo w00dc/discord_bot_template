@@ -10,5 +10,5 @@ def random_color():
 
     # Converting that number from base-10
     # (decimal) to base-16 (hexadecimal)
-    hex_color = hex(color)
-    return hex_color
+    # hex_color = hex(color)
+    return color

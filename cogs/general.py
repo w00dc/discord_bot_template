@@ -8,7 +8,10 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Context
 
+from config import get_settings
 from helpers import random_color
+
+settings = get_settings()
 
 
 class General(commands.Cog, name="general"):
@@ -70,10 +73,10 @@ class General(commands.Cog, name="general"):
         )
         # Create an embed to send the response in
         embed = discord.Embed(
+            color=random_color(),
             title="Roll Results",
-            color=random_color,
         )
-        embed.set_footer(f"Rolled by {ctx.author.name}")
+        embed.set_footer(text=f"Thank you for using {settings.bot_name}")
         embed.add_field(
             name=f"{dice_string}",
             value=f"`{roll}` == `{inv_rolls}{mod_op}{mod}`",
