@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     bot_name: str = "discord_bot"
     discord_token: str = "missing"
     steam_webapi_token: str = "missing"
+    steam_url: str = "missing"
     cmd_prefix: str = "!"
     sync_commands_globally: bool = False
     owner_id: int = 0

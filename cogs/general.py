@@ -72,6 +72,7 @@ class General(commands.Cog, name="general"):
             f"Rolling a {dice}d{sides}{mod_op}{mod} for {ctx.author.name}  ⟶  {roll}   ( {inv_rolls}{mod_op}{mod} )"
         )
         # Create an embed to send the response in
+        # Ref: https://autocode.com/tools/discord/embed-builder/
         embed = discord.Embed(
             color=random_color(),
             title="Roll Results",
